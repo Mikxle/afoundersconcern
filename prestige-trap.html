@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Prestige Trap — A Founder's Concern</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1814;
+    --ink-muted: #6b6760;
+    --ink-faint: #c8c4bc;
+    --paper: #faf8f4;
+    --paper-warm: #f2ede4;
+    --navy: #0f2647;
+    --navy-mid: #1a3a6b;
+    --navy-soft: #e8edf5;
+    --accent: #c9391a;
+    --serif: 'Playfair Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: var(--navy);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: #fff; }
+
+  .nav-cta {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 6px 16px;
+    border-radius: 2px;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+  }
+
+  /* ARTICLE HEADER */
+  .article-header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 100px 40px 48px;
+    border-bottom: 1px solid var(--ink-faint);
+  }
+
+  .article-category {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy-mid);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .article-category::before {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: var(--navy-mid);
+  }
+
+  .article-title {
+    font-family: var(--serif);
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+
+  .article-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--ink-muted);
+    line-height: 1.6;
+    margin-bottom: 32px;
+    font-style: italic;
+    font-family: var(--serif);
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.04em;
+  }
+
+  .meta-divider { color: var(--ink-faint); }
+
+  .pill-open {
+    display: inline-block;
+    background: var(--navy-soft);
+    color: var(--navy-mid);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  /* ARTICLE BODY */
+  .article-body {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 52px 40px 80px;
+  }
+
+  .article-body p {
+    font-size: 18px;
+    line-height: 1.85;
+    color: var(--ink);
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+
+  .article-body p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 64px;
+    font-weight: 600;
+    float: left;
+    line-height: 0.85;
+    margin-right: 8px;
+    margin-top: 8px;
+    color: var(--navy);
+  }
+
+  .article-body blockquote {
+    border-left: 3px solid var(--navy);
+    margin: 40px 0;
+    padding: 4px 0 4px 28px;
+  }
+
+  .article-body blockquote p {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--navy);
+    font-weight: 400;
+    margin-bottom: 0;
+  }
+
+  .article-body blockquote p::first-letter { all: unset; }
+
+  .trap-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    margin-top: 48px;
+    display: block;
+  }
+
+  /* FOOTER CTA */
+  .article-footer-cta {
+    background: var(--navy);
+    padding: 48px 40px;
+    text-align: center;
+  }
+
+  .article-footer-cta h3 {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+
+  .article-footer-cta p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 24px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--navy); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .article-header { padding: 90px 20px 40px; }
+    .article-body { padding: 40px 20px 60px; }
+    .article-body p { font-size: 17px; }
+    .article-footer-cta { padding: 40px 20px; }
+  }
+
+  /* ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .article-header { animation: fadeUp 0.5s ease both; }
+  .article-body { animation: fadeUp 0.5s ease 0.1s both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">A Founder's Concern</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Articles</a></li>
+    <li><a href="https://afoundersconcern.beehiiv.com/subscribe" target="_blank">Newsletter</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="https://afoundersconcern.beehiiv.com/subscribe" target="_blank" class="nav-cta">Subscribe — €3.99</a></li>
+  </ul>
+</nav>
+
+<div class="article-header">
+  <a href="index.html" class="back-link">← All articles</a>
+  <p class="article-category">Ambition</p>
+  <h1 class="article-title">The prestige trap nobody warns you about</h1>
+  <p class="article-subtitle">The cage you build for yourself looks better than the first one. That's what makes it so hard to leave.</p>
+  <div class="article-meta">
+    <span class="pill-open">Free</span>
+    <span>May 2026</span>
+    <span class="meta-divider">·</span>
+    <span>6 min read</span>
+  </div>
+</div>
+
+<div class="article-body">
+
+  <p>Nobody tells you that your second cage looks better. The first one — a job, a manager, Sunday dread — was obvious. You knew what to escape. But the cage you build for yourself after? It's made of good intentions and comfort. Years may pass before you notice it's locked from the inside.</p>
+
+  <p>Prestige is the name of the trap. Not success — prestige. The feeling of doing something that looks serious. The quiet satisfaction of a product that seems built by someone who knows what they're doing. The comfort of being almost ready. These are not the same as traction. They are the rehearsal for traction, mistaken for the real thing — and the rehearsal can run indefinitely if you let it.</p>
+
+  <p>I am writing this because I nearly let it.</p>
+
+  <span class="trap-label">Trap One</span>
+  <p>The first trap arrives as taste. You are building something, and you want it to be good — really good — so you spend time making it right. The copy is sharper. The design is cleaner. The onboarding flow finally makes sense. And every improvement feels like progress, because it is progress, just not the kind that earns you anything. The market does not reward beautiful unreleased products. It does not know they exist.</p>
+
+  <p>What you are really doing, when you polish the thing nobody has seen, is collecting evidence that you take this seriously. For yourself. The customer is not in the room. The customer has never been in the room. You are performing competence for an audience of one — and that audience is already convinced.</p>
+
+  <blockquote>
+    <p>The launch you keep delaying is the only thing that will tell you whether any of this was real. Everything before it is speculation with a to-do list.</p>
+  </blockquote>
+
+  <p>So ask yourself — not defensively, but honestly — when did you last do something that put your work in front of someone who could say no? Not a friend. Not another founder. Someone who would have to reach into their wallet for it to matter. If the answer requires some arithmetic, you are in a trap.</p>
+
+  <span class="trap-label">Trap Two</span>
+  <p>The second trap is subtler and more flattering. It comes dressed as a community. You share your progress, and people respond — other builders and individuals who understand the struggle because they are in it too. The likes accumulate. The replies are warm. And slowly, without deciding to, you begin building your reputation among people who will never be your customers.</p>
+
+  <p>This is not vanity. That would be easier to catch. This is something lonelier: the deep human need to be understood, misdirected toward people who happen to be available at the time. Your actual customer — the one with the real problem, the limited time, the budget that has to be justified to someone else — is not on the timeline applauding you. They are still at their desks, experiencing the problem.</p>
+
+  <p>Whose approval are you building toward? The answer is not rhetorical. It will tell you, precisely, why your conversion rate looks the way it does.</p>
+
+  <span class="trap-label">Trap Three</span>
+  <p>The third trap has no villain. That is what makes it so hard to leave. You are not being lazy. You are not being arrogant. You are being careful. Responsible. You are ensuring that the thing is ready so that when it goes out into the world, it accurately represents you. And this is almost true. The problem is the word almost, which can stretch across months like taffy if you are not watching it.</p>
+
+  <p>Almost ready is where good ideas go to age quietly into regret. It is a room that feels like preparation and functions like avoidance — and the distinction between the two is one of the genuinely difficult things about building anything. The difference, I think, is this: preparation has a specific endpoint it is moving toward. Avoidance has an endpoint too, but it keeps revising it. Every week, the bar rises just enough to stay out of reach.</p>
+
+  <p>Ship the ugly version. You have my permission, for whatever that is worth. Ship it and let someone tell you what is wrong with it. That conversation — the one that stings — is the most expensive information you can get for free. The alternative is to keep preparing alone, in silence, for a launch that never quite arrives.</p>
+
+  <p>The exit from all three traps is the same, and it is not a strategy. It is a question you ask yourself once a week, without mercy:</p>
+
+  <blockquote>
+    <p>Did anything I did this week land in front of someone who could say no?</p>
+  </blockquote>
+
+  <p>Not almost land. Not prepared to land. Land. A real person. A real decision. A real answer, even if the answer is not yet.</p>
+
+  <p>You left the first cage because you could feel it. The second one is harder to feel. But it is there — in the gap between how serious your work seems and how many people are paying for it. In the distance between the reputation you are building and the customer who has never heard your name. In the weeks that pass between now and the last time you put something real into the world.</p>
+
+  <p>The key is in your hand. It always has been.</p>
+
+</div>
+
+<div class="article-footer-cta">
+  <h3>If this landed, the next one will too.</h3>
+  <p>One free article a week. One members-only piece. €3.99/month for full access.</p>
+  <a href="https://afoundersconcern.beehiiv.com/subscribe" target="_blank" class="btn-primary">Subscribe — Start Free</a>
+</div>
+
+</body>
+</html>
